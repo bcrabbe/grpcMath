@@ -35,14 +35,14 @@ const math_proto = grpc.loadPackageDefinition(packageDefinition).math;
 function add(call, callback) {
   const {a, b} = call.request;
   const result = a + b;
-  if(LOG) console.log(`add: ${a} + ${b} = ${result}`);
+  if(LOG) console.log(`server add: ${a} + ${b} => ${result}`);
   callback(null, {result: result});
 }
 
 function divide(call, callback) {
   const {a, b} = call.request;
   const result = a / b;
-  if(LOG) console.log(`divide: ${a} / ${b} = ${result}`);
+  if(LOG) console.log(`server divide: ${a} / ${b} => ${result}`);
   callback(null, {result: result});
 }
 
