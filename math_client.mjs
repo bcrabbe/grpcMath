@@ -47,7 +47,7 @@ main();
 
 function init() {
   const math = new math_proto.Math(
-    'localhost:50051',
+    'localhost:5001',
     grpc.credentials.createInsecure()
   );
   grpc_promise.promisifyAll(math);

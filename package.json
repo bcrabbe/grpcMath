@@ -1,5 +1,5 @@
 {
-  "name": "grpc-examples",
+  "name": "grpcMath",
   "version": "0.1.0",
   "dependencies": {
     "@grpc/proto-loader": "^0.1.0",
@@ -10,5 +10,10 @@
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
     "util": "^0.11.1"
+  },
+  "scripts": {
+    "start": "exec node --experimental-modules math_server.mjs",
+    "build": "npm install",
+    "test": "node --experimental-modules math_client.mjs"
   }
 }

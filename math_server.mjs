@@ -57,7 +57,7 @@ function main() {
     divide: divide,
   });
 
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+  server.bind('0.0.0.0:5001', grpc.ServerCredentials.createInsecure());
   server.start();
 }
 
