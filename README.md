@@ -1,16 +1,21 @@
-Build
-___
-`npm install`
+#### Build
+```sh
+npm install
+```
 
-Run
-___
-`node --experimental-modules math_server.mjs`
+#### Run
+```sh
+node --experimental-modules math_server.mjs
+```
 
-Test
-___
-`node --experimental-modules math_client.mjs`
+#### Test
+```sh
+node --experimental-modules math_client.mjs localhost:5001
+```
 
-Docker
-___
-`docker build -t grpc-math:latest .`
-`docker run -p 5001:5001 --name grpc-math grpc-math`
+#### Docker
+```sh
+docker build -t grpc-math:latest .
+docker run -p 80:80 --name grpc-math grpc-math
+node --experimental-modules math_client.mjs $(ipconfig getifaddr en0):80
+```

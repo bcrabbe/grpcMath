@@ -56,8 +56,9 @@ function main() {
     add: add,
     divide: divide,
   });
-
-  server.bind('0.0.0.0:5001', grpc.ServerCredentials.createInsecure());
+  const port = process.argv[2] || 5001;
+  console.log(`Listening on 0.0.0.0:${port}`);
+  server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
   server.start();
 }
 

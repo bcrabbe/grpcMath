@@ -15,13 +15,12 @@
  * limitations under the License.
  *
  */
-
 import grpc from 'grpc';
 import protoLoader from '@grpc/proto-loader';
 import util from 'util';
 import grpc_promise from 'grpc-promise';
 
-const PROTO_PATH = './math.proto';
+const PROTO_PATH = (process.env.PATH_TO_GRPCMATH || '.') + '/math.proto';
 
 const  packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
@@ -33,21 +32,32 @@ const  packageDefinition = protoLoader.loadSync(
     });
 const math_proto = grpc.loadPackageDefinition(packageDefinition).math;
 
-async function main() {
+function main() {
   const MathService = init();
-  const a = (Math.random()*10).toFixed(0),
-        b = (Math.random()*10).toFixed(0);
-  let result = await MathService.add(a, b);
-  console.log(`${a} + ${b} = ${result}`);
-  result = await MathService.divide(a, b);
-  console.log(`${a} / ${b} = ${result}`);
+  test();
+  setInterval(test, 1000);
+
+  async function test() {
+    try {
+      const a = (Math.random()*10).toFixed(0),
+            b = (Math.random()*10).toFixed(0);
+      let result = await MathService.add(a, b);
+      console.log(`${a} + ${b} = ${result}`);
+      result = await MathService.divide(a, b);
+      console.log(`${a} / ${b} = ${result}`);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 }
 
 main();
 
 function init() {
+  const url = process.argv[2] || 'localhost:5001';
+  console.log(`Connecting to ${url}`);
   const math = new math_proto.Math(
-    'localhost:5001',
+    url,
     grpc.credentials.createInsecure()
   );
   grpc_promise.promisifyAll(math);
